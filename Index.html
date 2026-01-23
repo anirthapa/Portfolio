@@ -42,18 +42,21 @@
       <h4 style="text-transform: uppercase">
         Craft Your Online Presence with Professional Excellence
       </h4>
-      <h1>Hi, I'm <span>Anir</span>,Web Developer</h1>
+      <h1>Hi, I'm <span>Anir</span>,<br> <span class="typing-text">Web Developer</span></h1>
       <p>
         A student with a vision and an unquenchable thirst for technology's
         potential. I believe in turning passion into innovation, and that's
         why I'm on a journey to become a full-stack development maestro.
         <br>
+      <div class="hero-btns">
         <button class="btn" onclick="downloadCV()">Download CV</button>
+        <button class="btn btn-secondary" onclick="scrollToElement('.projects')">View Projects</button>
+      </div>
       </p>
     </div>
 
-    <div class="image">
-      <img src="./photos/Gitlogo.png" alt="" />
+    <div class="image floating-image">
+      <img src="./photos/Gitlogo.png" alt="Anir Jung Thapa" />
     </div>
   </header>
   <!-- End of header -->
@@ -61,67 +64,191 @@
   <!-- start of  section  -->
   <section class="container">
     <h2 class="header">MY SKILLS</h2>
-    <div class="skills">
-      <div class="card">
-        <span class="fab fa-react icon-style"></span>
-        <h4>React.js</h4>
-        <p>
-          I possess a comprehensive understanding of React.js, a powerful JavaScript library for building user
-          interfaces. I am
-          skilled in creating dynamic and responsive web applications using React's component-based architecture, state
-          management, and hooks.
-        </p>
+    <div class="skills-wrapper">
+      <div class="skills-marquee">
+        <!-- Original Skills -->
+        <div class="skill-group">
+          <div class="card">
+            <span class="fab fa-react icon-style"></span>
+            <h4>React.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-js icon-style"></span>
+            <h4>JavaScript</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-html5 icon-style"></span>
+            <h4>HTML5</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-css3-alt icon-style"></span>
+            <h4>CSS3</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-code icon-style"></i> <!-- Placeholder for TypeScript -->
+            <h4>TypeScript</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-wind icon-style"></i> <!-- Placeholder for Tailwind -->
+            <h4>Tailwind CSS</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-layer-group icon-style"></i> <!-- Placeholder for Next.js -->
+            <h4>Next.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-node icon-style"></span>
+            <h4>Node.js</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-server icon-style"></i> <!-- Placeholder for Express -->
+            <h4>Express.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-java icon-style"></span>
+            <h4>Java</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-python icon-style"></span>
+            <h4>Python</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-hashtag icon-style"></i> <!-- Placeholder for C# -->
+            <h4>C#</h4>
+          </div>
+          <div class="card">
+            <span class="fas fa-database icon-style"></span>
+            <h4>MongoDB</h4>
+          </div>
+          <div class="card">
+            <span class="fas fa-database icon-style"></span>
+            <h4>MySQL</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-git-alt icon-style"></span>
+            <h4>Git</h4>
+          </div>
+        </div>
+        <!-- Duplicate Skills for Infinite Scroll -->
+        <div class="skill-group">
+          <div class="card">
+            <span class="fab fa-react icon-style"></span>
+            <h4>React.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-js icon-style"></span>
+            <h4>JavaScript</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-html5 icon-style"></span>
+            <h4>HTML5</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-css3-alt icon-style"></span>
+            <h4>CSS3</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-code icon-style"></i> <!-- Placeholder for TypeScript -->
+            <h4>TypeScript</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-wind icon-style"></i> <!-- Placeholder for Tailwind -->
+            <h4>Tailwind CSS</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-layer-group icon-style"></i> <!-- Placeholder for Next.js -->
+            <h4>Next.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-node icon-style"></span>
+            <h4>Node.js</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-server icon-style"></i> <!-- Placeholder for Express -->
+            <h4>Express.js</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-java icon-style"></span>
+            <h4>Java</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-python icon-style"></span>
+            <h4>Python</h4>
+          </div>
+          <div class="card">
+            <i class="fas fa-hashtag icon-style"></i> <!-- Placeholder for C# -->
+            <h4>C#</h4>
+          </div>
+          <div class="card">
+            <span class="fas fa-database icon-style"></span>
+            <h4>MongoDB</h4>
+          </div>
+          <div class="card">
+            <span class="fas fa-database icon-style"></span>
+            <h4>MySQL</h4>
+          </div>
+          <div class="card">
+            <span class="fab fa-git-alt icon-style"></span>
+            <h4>Git</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <a href="#">See More
-          <span class="material-symbols-outlined"> navigate_next </span></a>
+  <section class="container" id="experience">
+    <h2 class="header">EXPERIENCE</h2>
+    <div class="experience-wrapper">
+
+      <!-- Detech Solution -->
+      <div class="experience-card">
+        <div class="exp-logo">
+          <i class="fas fa-laptop-code"></i> <!-- Placeholder Logo -->
+        </div>
+        <div class="exp-content">
+          <h3>Detech Solution</h3>
+          <p class="exp-meta">Full-time · 6 mos</p>
+          <p class="exp-loc">Lalitpur District, Nepal · On-site</p>
+
+          <div class="exp-roles">
+            <div class="exp-role-item">
+              <div class="role-dot"></div>
+              <div class="role-details">
+                <h4>Junior Frontend Developer</h4>
+                <p>Nov 2025 - Present · 3 mos</p>
+              </div>
+            </div>
+            <div class="exp-role-item">
+              <div class="role-dot"></div>
+              <div class="role-details">
+                <h4>Frontend Developer Trainee</h4>
+                <p>Aug 2025 - Nov 2025 · 4 mos</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <span class="fab fa-java icon-style"></span>
+      <!-- Teaching Assistant -->
+      <div class="experience-card">
+        <div class="exp-logo">
+          <i class="fas fa-university"></i> <!-- Placeholder Logo -->
+        </div>
+        <div class="exp-content">
+          <h3>Teaching Assistant</h3>
+          <p class="exp-company">Itahari International College · Internship</p>
+          <p class="exp-meta">Jun 2024 - Sep 2024 · 4 mos</p>
+          <p class="exp-loc">Sundar Haraicha Municipality, Nepal · On-site</p>
 
-        <h4>Java</h4>
-        <p>
-          I have a solid understanding of Java basics and am currently exploring advanced techniques to enhance my
-          software
-          development skills. My focus includes object-oriented programming, data structures, algorithms, and developing
-          robust
-          applications.
-        </p>
-
-        <a href="#">See More
-          <span class="material-symbols-outlined"> navigate_next </span></a>
+          <div class="exp-attachments">
+            <div class="attachment-item">
+              <i class="fas fa-file-alt"></i>
+              <span>Completion letter</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <span class="fab fa-css3-alt fab icon-style"></span>
-        <h4>Node.js</h4>
-        <p>
-          With a deep understanding of Node.js, I excel in building scalable and efficient server-side applications. I
-          am
-          proficient in using Node.js for backend development, including RESTful APIs, real-time applications, and
-          integrating
-          with databases.
-        </p>
-
-        <a href="#">See More
-          <span class="material-symbols-outlined"> navigate_next </span></a>
-      </div>
-
-      <div class="card">
-        <span class="fab fa-js icon-style"></span>
-        <h4>Python</h4>
-        <p>
-          With a solid foundation in Python, I am adept at writing clean and efficient code. My experience includes
-          working with
-          popular libraries such as Pandas for data manipulation, Matplotlib for data visualization, and NumPy for
-          numerical
-          computing. I continually expand my skills in Python to tackle diverse programming challenges.
-        </p>
-        <a href="#">
-          See More
-          <span class="material-symbols-outlined"> navigate_next </span>
-          </p></a>
-      </div>
     </div>
   </section>
 
@@ -133,31 +260,49 @@
     </p>
     <div class="projects">
       <div class="card">
-        <h4>Habit Pulse</h4>
-        <p>
-          <span class="material-symbols-outlined"> task_alt </span>
-          A habit Tracking web application
-
-          <img src="./photos/Weather.png" alt="" />
-        </p>
+        <div class="card-image">
+          <img src="./photos/Weather.png" alt="Habit Pulse" />
+          <div class="card-overlay">
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </div>
+        <div class="card-content">
+          <h4>Habit Pulse</h4>
+          <p>
+            <span class="material-symbols-outlined"> task_alt </span>
+            A habit Tracking web application
+          </p>
+        </div>
       </div>
       <div class="card">
-        <h4>Chat App</h4>
-        <p>
-          <span class="material-symbols-outlined"> task_alt </span>
-          Real time chat app practice project.
-
-          <img src="./photos/birthday_remainder.png" alt="" />
-        </p>
+        <div class="card-image">
+          <img src="./photos/birthday_remainder.png" alt="Chat App" />
+          <div class="card-overlay">
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </div>
+        <div class="card-content">
+          <h4>Chat App</h4>
+          <p>
+            <span class="material-symbols-outlined"> task_alt </span>
+            Real time chat app practice project.
+          </p>
+        </div>
       </div>
       <div class="card">
-        <h4>Hostle Management System</h4>
-        <p>
-          <span class="material-symbols-outlined"> task_alt </span>
-          A proper web application for management of Hostle.
-
-          <img src="./photos/quiz.png" alt="" />
-        </p>
+        <div class="card-image">
+          <img src="./photos/quiz.png" alt="Hostel Management System" />
+          <div class="card-overlay">
+            <a href="#" class="btn-small">View Project</a>
+          </div>
+        </div>
+        <div class="card-content">
+          <h4>Hostel Management System</h4>
+          <p>
+            <span class="material-symbols-outlined"> task_alt </span>
+            A proper web application for management of Hostel.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -166,20 +311,77 @@
 
   <!-- contact form  -->
 
-  <section class="contact-form">
-    <form id="contactForm" onsubmit="return handleSubmit(event)">
+  <section class="contact-section container" id="contact">
+    <h2 class="header">GET IN TOUCH</h2>
+    <p class="sub-header">Have a project in mind or just want to say hi? Feel free to reach out!</p>
 
-      <label for="Name">Name</label>
-      <input type="text" placeholder="Enter your name." required>
-      <label for="Email">Email</label>
-      <input type="email" placeholder="Enter your email." required>
-      <label for="Topic">Topic</label>
-      <input type="text" placeholder="Enter your topic." required>
-      <label for="Message">Message</label>
-      <textarea name="" id="" cols="30" rows="10" placeholder="Enter your Message!" required></textarea>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <div class="info-item">
+          <div class="info-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="info-text">
+            <h4>Email</h4>
+            <p>anirthapa@example.com</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="info-text">
+            <h4>Phone</h4>
+            <p>+977 98XXXXXXXX</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="info-text">
+            <h4>Location</h4>
+            <p>Kathmandu, Nepal</p>
+          </div>
+        </div>
 
-      <button class="btn" type="submit">Submit</button>
-    </form>
+        <div class="contact-socials">
+          <h4>Follow Me</h4>
+          <div class="social-links">
+            <a href="https://github.com/Aneer-Thapa1" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.facebook.com/ajt.anir" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/aneerthapa/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UC-qyZMz4g9O-VNecufmBoDA" target="_blank"><i
+                class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-container">
+        <form id="contactForm" onsubmit="return handleSubmit(event)">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <label for="topic">Topic</label>
+            <input type="text" id="topic" placeholder="Subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" cols="30" rows="5" placeholder="Your Message" required></textarea>
+          </div>
+          <button class="btn submit-btn" type="submit">
+            <span>Send Message</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
   </section>
 
 
@@ -223,7 +425,7 @@
     </div>
   </footer>
   <div class="copyright">
-    copyright © 2025 Anir J Thapa. All Rights Reserved.
+    copyright © 2026 Anir J Thapa. All Rights Reserved.
   </div>
 
   <script src="script.js"></script>
