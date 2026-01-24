@@ -12,6 +12,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css" />
   <link rel="stylesheet" href="Index.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // https://dashboard.emailjs.com/admin/account
+      emailjs.init("YOUR_PUBLIC_KEY");
+    })();
+  </script>
 </head>
 
 <body>
@@ -43,9 +50,9 @@
       </h4>
       <h1>Hi, I'm <span>Anir</span>,<br> <span class="typing-text">Web Developer</span></h1>
       <p>
-        A student with a vision and an unquenchable thirst for technology's
+        A dedicated developer with a vision and an unquenchable thirst for technology's
         potential. I believe in turning passion into innovation, and that's
-        why I'm on a journey to become a full-stack development maestro.
+        why I'm on a journey to deliver exceptional digital experiences.
         <br>
       <div class="hero-btns">
         <button class="btn" onclick="downloadCV()">Download CV</button>
@@ -449,18 +456,36 @@
   function handleSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Show the SweetAlert notification
-    swal({
-      title: "Message Sent!",
-      text: "Your message has been sent successfully.",
-      icon: "success",
-      button: "OK",
-    });
+    const btn = document.querySelector('.submit-btn span');
+    const originalText = btn.innerText;
+    btn.innerText = 'Sending...';
 
-    // Optionally, you can reset the form after submission
-    document.getElementById('contactForm').reset();
+    const serviceID = 'YOUR_SERVICE_ID';
+    const templateID = 'YOUR_TEMPLATE_ID';
 
-    // Return false to prevent the form from submitting
+    // Send the form using EmailJS
+    emailjs.sendForm(serviceID, templateID, '#contactForm')
+      .then(() => {
+        btn.innerText = originalText;
+        swal({
+          title: "Message Sent!",
+          text: "Your message has been sent successfully.",
+          icon: "success",
+          button: "OK",
+        });
+        document.getElementById('contactForm').reset();
+      }, (err) => {
+        btn.innerText = originalText;
+        swal({
+          title: "Failed!",
+          text: "Failed to send message. Please try again later.",
+          icon: "error",
+          button: "OK",
+        });
+        console.error('EmailJS Error:', err);
+      });
+
+    // Return false to prevent the form from submitting normally
     return false;
   }
 </script>

@@ -26,6 +26,7 @@ nav {
   justify-content: space-between;
   gap: 2rem;
 }
+
 /* 
 .nav-logo {
   max-width:px;
@@ -100,6 +101,7 @@ nav {
 
 header {
   position: relative;
+  min-height: 100vh;
   padding-top: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -107,11 +109,62 @@ header {
   gap: 2rem;
 }
 
+@keyframes slideBottom {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideTop {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 header .content h4 {
   margin-bottom: 1rem;
   color: #ccc;
   font-size: 1rem;
   font-weight: 600;
+  opacity: 0;
+  animation: slideBottom 1s ease forwards;
+  animation-delay: 0.2s;
 }
 
 /* Hero Section Styles */
@@ -121,11 +174,15 @@ header .content h1 {
   font-size: 3rem;
   font-weight: 700;
   line-height: 4rem;
+  opacity: 0;
+  animation: slideRight 1s ease forwards;
+  animation-delay: 0.4s;
 }
 
 header .content h1 span {
   color: cyan;
-  -webkit-text-fill-color: cyan; /* Override transparent fill */
+  -webkit-text-fill-color: cyan;
+  /* Override transparent fill */
   -webkit-text-stroke: 0;
 }
 
@@ -148,10 +205,12 @@ header .content h1 span {
 }
 
 @keyframes blink {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
@@ -162,12 +221,18 @@ header .content p {
   color: #ccc;
   font-size: 1.1rem;
   line-height: 1.6;
+  opacity: 0;
+  animation: slideLeft 1s ease forwards;
+  animation-delay: 0.6s;
 }
 
 .hero-btns {
   display: flex;
   gap: 1rem;
   margin-top: 1.5rem;
+  opacity: 0;
+  animation: slideTop 1s ease forwards;
+  animation-delay: 0.8s;
 }
 
 .btn {
@@ -175,10 +240,12 @@ header .content p {
   font-size: 1rem;
   color: cyan;
   border: 2px solid cyan;
-  border-radius: 5px; /* Slight radius as per image */
+  border-radius: 5px;
+  /* Slight radius as per image */
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: black; /* Black background */
+  background-color: black;
+  /* Black background */
   font-weight: 600;
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
   position: relative;
@@ -193,12 +260,10 @@ header .content p {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(0, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 255, 255, 0.4),
+      transparent);
   transition: 0.5s;
   z-index: -1;
 }
@@ -208,12 +273,15 @@ header .content p {
 }
 
 .btn:hover {
-  background-color: black; /* Keep black to let shimmer show */
+  background-color: black;
+  /* Keep black to let shimmer show */
   color: cyan;
   box-shadow:
     0 0 20px cyan,
-    0 0 40px cyan; /* Stronger glow */
-  transform: translateY(-3px) scale(1.05); /* Slight scale up */
+    0 0 40px cyan;
+  /* Stronger glow */
+  transform: translateY(-3px) scale(1.05);
+  /* Slight scale up */
   text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
 }
 
@@ -233,6 +301,10 @@ header .image {
   position: relative;
   display: flex;
   justify-content: center;
+  opacity: 0;
+  animation: slideTop 1s ease forwards, float 6s ease-in-out infinite;
+  animation-delay: 1s, 2s;
+  /* Wait for slideTop to finish before float logic dominates or combine carefully */
 }
 
 .floating-image img {
@@ -246,9 +318,11 @@ header .image {
   0% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -280,20 +354,16 @@ section .header {
 .skills-wrapper {
   width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
   padding: 2rem 0;
 }
 
@@ -308,7 +378,8 @@ section .header {
   display: flex;
   gap: 2rem;
   padding-right: 2rem;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
 .skills-marquee:hover {
@@ -319,6 +390,7 @@ section .header {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -327,9 +399,11 @@ section .header {
 .skills-wrapper .card {
   background-color: rgba(39, 39, 42, 0.5);
   backdrop-filter: blur(10px);
-  padding: 1.5rem; /* Reduced padding */
+  padding: 1.5rem;
+  /* Reduced padding */
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px; /* Slightly smaller radius */
+  border-radius: 15px;
+  /* Slightly smaller radius */
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -338,8 +412,10 @@ section .header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 140px; /* Reduced height */
-  min-width: 140px; /* Fixed width for uniformity */
+  min-height: 140px;
+  /* Reduced height */
+  min-width: 140px;
+  /* Fixed width for uniformity */
   flex-shrink: 0;
 }
 
@@ -350,12 +426,10 @@ section .header {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(0, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(0, 255, 255, 0.1),
+      transparent);
   transform: translateX(-100%);
   transition: 0.5s;
 }
@@ -376,10 +450,12 @@ section .header {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px; /* Smaller icon container */
+  width: 50px;
+  /* Smaller icon container */
   height: 50px;
   margin-bottom: 0.75rem;
-  font-size: 1.75rem; /* Smaller icon */
+  font-size: 1.75rem;
+  /* Smaller icon */
   color: cyan;
   border-radius: 50%;
   border: 1px solid cyan;
@@ -396,7 +472,8 @@ section .header {
 .skills-wrapper .card h4 {
   margin-bottom: 0;
   color: #fff;
-  font-size: 1rem; /* Smaller font */
+  font-size: 1rem;
+  /* Smaller font */
   font-weight: 600;
 }
 
@@ -652,7 +729,12 @@ section .header {
   color: #fff;
   font-size: 1rem;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Override previous style */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Override previous style */
+}
+
+.form-group textarea {
+  resize: none;
 }
 
 .form-group input:focus,
@@ -695,6 +777,7 @@ footer {
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
+
 footer .column p {
   color: #ccc;
   margin-bottom: 2rem;
@@ -725,14 +808,14 @@ footer .column h4 {
   font-weight: 500;
 }
 
-footer .column > a {
+footer .column>a {
   display: block;
   color: #ccc;
   margin-bottom: 1rem;
   transition: all 0.7s ease;
 }
 
-footer .column > a:hover {
+footer .column>a:hover {
   color: cyan;
 }
 
@@ -748,18 +831,23 @@ footer .column > a:hover {
   .nav-links {
     display: none;
   }
+
   header {
     grid-template-columns: repeat(1, 1fr);
   }
+
   header .image {
     grid-area: 1/1/2/2;
   }
+
   .skills {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .projects {
     grid-template-columns: repeat(2, 1fr);
   }
+
   footer {
     grid-template-columns: 1fr 200px;
   }
@@ -777,6 +865,7 @@ footer .column > a:hover {
   .projects {
     grid-template-columns: repeat(1, 1fr);
   }
+
   footer {
     grid-template-columns: 1fr 150px;
   }
@@ -794,7 +883,8 @@ footer .column > a:hover {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-left: 30px; /* Space for the line */
+  padding-left: 30px;
+  /* Space for the line */
 }
 
 .timeline-items::before {
@@ -804,11 +894,10 @@ footer .column > a:hover {
   left: 7px;
   width: 2px;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    cyan 80%,
-    transparent
-  ); /* Fade out at bottom */
+  background: linear-gradient(to bottom,
+      cyan 80%,
+      transparent);
+  /* Fade out at bottom */
   box-shadow: 0 0 10px cyan;
 }
 
@@ -835,9 +924,11 @@ footer .column > a:hover {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7);
   }
+
   70% {
     box-shadow: 0 0 0 10px rgba(0, 255, 255, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
   }
@@ -866,7 +957,8 @@ footer .column > a:hover {
   border-color: cyan;
   box-shadow:
     0 0 20px rgba(0, 255, 255, 0.3),
-    inset 0 0 10px rgba(0, 255, 255, 0.1); /* Inner and outer glow */
+    inset 0 0 10px rgba(0, 255, 255, 0.1);
+  /* Inner and outer glow */
 }
 
 .timeline-content h3 {
@@ -886,9 +978,11 @@ footer .column > a:hover {
   .timeline-items {
     padding-left: 20px;
   }
+
   .timeline-items::before {
     left: 0;
   }
+
   .timeline-dot {
     left: -7px;
     width: 14px;
@@ -927,12 +1021,10 @@ footer .column > a:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(0, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(0, 255, 255, 0.1),
+      transparent);
   transform: translateX(-100%);
   transition: 0.5s;
   z-index: 0;
@@ -954,7 +1046,8 @@ footer .column > a:hover {
   width: 60px;
   height: 60px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px; /* Square with rounded corners like LinkedIn */
+  border-radius: 10px;
+  /* Square with rounded corners like LinkedIn */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1018,7 +1111,8 @@ footer .column > a:hover {
 
 .role-dot {
   position: absolute;
-  left: -4px; /* Center on the line */
+  left: -4px;
+  /* Center on the line */
   top: 6px;
   width: 10px;
   height: 10px;
