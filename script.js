@@ -45,3 +45,49 @@ function scrollToElement(selector) {
     element.scrollIntoView({ behavior: "smooth" });
   }
 }
+
+// Update Copyright Year
+function updateCopyrightYear() {
+  const yearSpan = document.getElementById('copyright-year');
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+}
+
+// Update Job Duration
+function updateJobDuration() {
+  const durationElement = document.getElementById('current-job-duration');
+  const durationTextSpan = document.getElementById('duration-text');
+  
+  if (durationElement && durationTextSpan) {
+    const startDateStr = durationElement.getAttribute('data-start');
+    const startDate = new Date(startDateStr);
+    const currentDate = new Date();
+    
+    // Calculate difference in months
+    let months = (currentDate.getFullYear() - startDate.getFullYear()) * 12;
+    months -= startDate.getMonth();
+    months += currentDate.getMonth();
+    
+    // Add 1 to make it inclusive (like LinkedIn) e.g., Nov to Jan = Nov, Dec, Jan = 3 months
+    months += 1;
+    
+    // Handle cases where start date is in future (shouldn't happen but good safety) or very recent
+    if (months <= 0) months = 0;
+
+    let durationString = "";
+    if (months < 12) {
+        durationString = `${months} mos`;
+    } else {
+        const years = Math.floor(months / 12);
+        const remainingMonths = months % 12;
+        durationString = `${years} yr${years > 1 ? 's' : ''}${remainingMonths > 0 ? " " + remainingMonths + " mos" : ""}`;
+    }
+    
+    durationTextSpan.textContent = durationString;
+  }
+}
+
+// Initialize dynamic updates
+updateCopyrightYear();
+updateJobDuration();
