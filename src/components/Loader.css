@@ -1,0 +1,84 @@
+.awwwards-loader {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-primary); /* Uses the true black from index.css */
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Subtle background grain to match the main aesthetic */
+.awwwards-loader-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+.loader-center-content {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.loader-counter-wrapper {
+  display: flex;
+  align-items: baseline;
+  color: var(--text-primary);
+}
+
+.loader-counter {
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 20vw, 24rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #666666 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loader-percent {
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 5vw, 5rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-left: 1rem;
+}
+
+/* Subtle tech details at the bottom */
+.loader-bottom-text {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 2;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .loader-bottom-text {
+    left: 1rem;
+    right: 1rem;
+    font-size: 0.7rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
