@@ -127,6 +127,21 @@ h1, h2, h3, h4, h5 {
   transform: translate(-50%, -50%);
 }
 
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
 /* Hero Section */
 .hero-section {
   min-height: 100vh;
@@ -139,9 +154,9 @@ h1, h2, h3, h4, h5 {
 .hero-huge-text {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(4rem, 12vw, 15rem);
-  line-height: 0.9;
-  letter-spacing: -0.05em;
+  font-size: clamp(3rem, 9.5vw, 9.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   display: flex;
   flex-direction: column;
@@ -151,6 +166,7 @@ h1, h2, h3, h4, h5 {
   margin-top: 2rem;
   display: flex;
   gap: 2rem;
+  align-items: center;
   font-family: var(--font-primary);
   color: var(--text-secondary);
   font-size: 1.1rem;
@@ -315,19 +331,32 @@ h1, h2, h3, h4, h5 {
   100% { transform: translateX(-50%); }
 }
 
+@media (max-width: 1050px) {
+  .nav-links { display: none !important; }
+  .nav-container { padding: 0 2rem !important; }
+}
+
 @media (max-width: 768px) {
-  .nav-links {
-    display: none; /* Keep mobile header clean */
+  .section-container {
+    padding: 0 1.5rem; /* Maximize screen real estate on phones */
   }
   .hero-huge-text {
-    font-size: clamp(3rem, 10vw, 5.5rem); 
+    font-size: 11vw; /* Push font strictly to screen edge bounds */
     letter-spacing: -0.02em;
+    align-items: flex-start; /* Aggressive editorial left-alignment */
+  }
+  .hero-sub { 
+    flex-direction: column; 
+    align-items: flex-start !important;
+    gap: 1rem;
+    border-left: 2px solid var(--border-hover);
+    padding-left: 1.5rem;
+    margin-top: 3rem;
   }
   .bento-grid {
     grid-template-columns: 1fr;
   }
   .bento-span-4, .bento-span-3, .bento-span-2 { grid-column: span 1; }
-  .hero-sub { flex-direction: column; gap: 0.5rem; }
 }
 
 /* Scroll To Top Button */

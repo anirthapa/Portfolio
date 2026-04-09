@@ -14,14 +14,15 @@ const Hero = () => {
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // High-End text mask reveal! (Text slides up from 100% Y inside hidden overflow)
-      // This animates the inner span.
+      // Premium 3D unfolding text reveal (No clipping masks needed, completely stops letters getting chopped!)
       gsap.fromTo([text1Ref.current, text2Ref.current], 
-        { y: "150%" },
+        { y: 80, opacity: 0, rotateX: 60, transformOrigin: "0% 50%" },
         {
-          y: "0%",
+          y: 0,
+          opacity: 1,
+          rotateX: 0,
           duration: 1.6,
-          stagger: 0.1,
+          stagger: 0.15,
           ease: "expo.out",
           delay: 3.4
         }
@@ -65,16 +66,11 @@ const Hero = () => {
           
           {/* Outer wrapper for Parallax */}
           <div ref={parallax1Ref}>
-            {/* Inner wrapper for Clipping Mask. max-content prevents bounding box slice, nowrap prevents unwanted stacking. */}
-            <div style={{ overflow: 'hidden', paddingBottom: '15px', paddingRight: '20px', paddingTop: '10px', width: 'max-content' }}>
-              <span ref={text1Ref} style={{ display: 'block', transformOrigin: 'left', whiteSpace: 'nowrap' }}>FULL STACK</span>
-            </div>
+            <span ref={text1Ref} style={{ display: 'block', whiteSpace: 'nowrap' }}>FULL STACK</span>
           </div>
           
           <div ref={parallax2Ref}>
-            <div style={{ overflow: 'hidden', paddingBottom: '15px', paddingRight: '20px', paddingTop: '10px', width: 'max-content' }}>
-              <span ref={text2Ref} style={{ display: 'block', color: 'var(--text-secondary)', transformOrigin: 'left', whiteSpace: 'nowrap' }}>DEVELOPER</span>
-            </div>
+            <span ref={text2Ref} style={{ display: 'block', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>DEVELOPER</span>
           </div>
           
         </div>

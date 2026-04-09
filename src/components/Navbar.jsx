@@ -31,11 +31,11 @@ const Navbar = () => {
       borderBottom: isScrolled ? '1px solid var(--border)' : '1px solid transparent',
       transition: 'all 0.4s ease'
     }}>
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 4rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '2px', color: '#fff' }}>
           ANIR.
         </a>
-        <div style={{ display: 'flex', gap: '3rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 500 }}>
+        <div className="nav-links">
           <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} style={{ color: 'var(--text-secondary)' }}>Skills</a>
           <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} style={{ color: 'var(--text-secondary)' }}>Experience</a>
           <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} style={{ color: 'var(--text-secondary)' }}>Work</a>
