@@ -1,10 +1,12 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import HeroNetwork from './HeroNetwork';
+import './Hero.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
+const Hero = ({ isReady = true }) => {
   const heroRef = useRef(null);
   const text1Ref = useRef(null);
   const text2Ref = useRef(null);
@@ -13,71 +15,51 @@ const Hero = () => {
   const parallax2Ref = useRef(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      // Premium 3D unfolding text reveal (No clipping masks needed, completely stops letters getting chopped!)
-      gsap.fromTo([text1Ref.current, text2Ref.current], 
-        { y: 80, opacity: 0, rotateX: 60, transformOrigin: "0% 50%" },
-        {
-          y: 0,
-          opacity: 1,
-          rotateX: 0,
-          duration: 1.6,
-          stagger: 0.15,
-          ease: "expo.out",
-          delay: 3.4
-        }
-      );
-
-      gsap.fromTo(subRef.current,
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 1.5, delay: 4.1, ease: "power3.out" }
-      );
-
-      // Parallax tracking moves the OUTER wrapper, so it doesn't conflict with the 'y' transform of the inner span!
-      gsap.to(parallax1Ref.current, {
-        yPercent: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1
-        }
-      });
-      gsap.to(parallax2Ref.current, {
-        yPercent: -100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.5
-        }
-      });
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
+    if (!isReady) return;
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.fromTo([text1Ref.current, text2Ref.current],
+          { y: 80, opacity: 0, rotateX: 60, transformOrigin: '0% 50%' },
+          { y: 0, opacity: 1, rotateX: 0, duration: 1.6, stagger: 0.15, ease: 'expo.out' },
+        );
+        gsap.fromTo(subRef.current,
+          { opacity: 0, scale: 0.9 },
+          { opacity: 1, scale: 1, duration: 1.2, delay: 0.5, ease: 'power3.out' },
+        );
+        [parallax1Ref.current, parallax2Ref.current].forEach((line, index) => {
+          gsap.to(line, {
+            yPercent: index === 0 ? -50 : -100,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: index === 0 ? 1 : 1.5,
+            },
+          });
+        });
+      }, heroRef);
+      return () => ctx.revert();
+    });
+    return () => media.revert();
+  }, [isReady]);
 
   return (
-    <section className="section hero-section" id="hero" ref={heroRef} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <div className="section-container" style={{ position: 'relative', zIndex: 2 }}>
-        <div className="hero-huge-text" style={{ paddingBottom: '2rem' }}>
-          
-          {/* Outer wrapper for Parallax */}
-          <div ref={parallax1Ref}>
-            <span ref={text1Ref} style={{ display: 'block', whiteSpace: 'nowrap' }}>FULL STACK</span>
-          </div>
-          
-          <div ref={parallax2Ref}>
-            <span ref={text2Ref} style={{ display: 'block', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>DEVELOPER</span>
-          </div>
-          
-        </div>
-        
-        <div ref={subRef} className="hero-sub" style={{ marginTop: '2rem', display: 'flex', gap: '2rem', alignItems: 'center' }}>
+    <section className="section hero-section" id="hero" ref={heroRef} aria-labelledby="hero-title">
+      <HeroNetwork heroRef={heroRef} active={isReady} />
+      <div className="section-container hero-original-content">
+        <h1 className="hero-huge-text" id="hero-title">
+          <span className="hero-line" ref={parallax1Ref}>
+            <span ref={text1Ref}>FULL STACK</span>
+          </span>
+          <span className="hero-line" ref={parallax2Ref}>
+            <span className="hero-line-secondary" ref={text2Ref}>DEVELOPER</span>
+          </span>
+        </h1>
+        <div ref={subRef} className="hero-sub">
           <span>Based in Nepal</span>
-          <span style={{ color: 'var(--border-hover)' }}>//</span>
+          <span className="hero-divider" aria-hidden="true">//</span>
           <span>Available for work</span>
         </div>
       </div>
