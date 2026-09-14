@@ -1,0 +1,46 @@
+.glass-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 100010;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  will-change: transform;
+}
+
+.glass-cursor.is-visible { opacity: 1; }
+
+.glass-cursor-ball {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.025) 60%);
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.13), 0 0 0 1px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  transform: translate(-50%, -50%);
+  transition: width 220ms ease, height 220ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.glass-cursor.is-hovering .glass-cursor-ball { width: 38px; height: 38px; border-color: rgba(255, 255, 255, 0.8); }
+.glass-cursor.has-label .glass-cursor-ball { width: 62px; height: 62px; }
+.glass-cursor.is-pressed .glass-cursor-ball { transform: translate(-50%, -50%) scale(0.85); }
+.glass-cursor-label { color: #fff; font-family: var(--font-primary); font-size: 0.65rem; text-shadow: 0 1px 3px #000; }
+
+@media (hover: hover) and (pointer: fine) {
+  html.ball-cursor-active, html.ball-cursor-active * { cursor: none !important; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .glass-cursor { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-cursor, .glass-cursor-ball { transition: none; }
+}
