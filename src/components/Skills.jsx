@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './Skills.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,29 +9,57 @@ const Skills = () => {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      // Use fromTo for reliable rendering in React strict mode
-      gsap.fromTo(".bento-card", 
-        { y: 80, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            toggleActions: "play reverse play reverse"
-          }
-        }
-      );
-    }, containerRef);
-    return () => ctx.revert();
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const cleanups = [];
+      const ctx = gsap.context(() => {
+        gsap.fromTo('.bento-card',
+          { y: 70, opacity: 0, scale: 0.96 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            stagger: 0.1,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: { trigger: containerRef.current, start: 'top 78%', once: true },
+          },
+        );
+
+        gsap.utils.toArray('.bento-card').forEach((card) => {
+          const rotateX = gsap.quickTo(card, 'rotationX', { duration: 0.65, ease: 'power3.out' });
+          const rotateY = gsap.quickTo(card, 'rotationY', { duration: 0.65, ease: 'power3.out' });
+          const move = (event) => {
+            const bounds = card.getBoundingClientRect();
+            const x = event.clientX - bounds.left;
+            const y = event.clientY - bounds.top;
+            card.style.setProperty('--card-x', `${x}px`);
+            card.style.setProperty('--card-y', `${y}px`);
+            rotateX((0.5 - y / bounds.height) * 3.5);
+            rotateY((x / bounds.width - 0.5) * 3.5);
+          };
+          const leave = () => { rotateX(0); rotateY(0); };
+          card.addEventListener('pointermove', move, { passive: true });
+          card.addEventListener('pointerleave', leave);
+          cleanups.push(() => {
+            card.removeEventListener('pointermove', move);
+            card.removeEventListener('pointerleave', leave);
+          });
+        });
+      }, containerRef);
+
+      return () => {
+        cleanups.forEach((cleanup) => cleanup());
+        ctx.revert();
+      };
+    });
+
+    return () => media.revert();
   }, []);
 
   return (
-    <section className="section" id="skills" ref={containerRef}>
+    <section className="section skills-section" id="skills" ref={containerRef}>
       <div className="section-container">
         <div className="section-header fade-up">
           <h2 className="section-title">Capabilities</h2>
@@ -47,7 +76,7 @@ const Skills = () => {
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', marginTop: 'auto' }}>
               {["React", "Next.js", "Vue.js", "TypeScript", "TailwindCSS", "GSAP"].map(skill => (
-                <span key={skill} style={{ padding: '0.6rem 1.2rem', border: '1px solid var(--border)', borderRadius: '100px', fontSize: '0.85rem', backdropFilter: 'blur(10px)', background: 'rgba(255,255,255,0.02)' }}>
+                <span className="skill-chip" key={skill} style={{ padding: '0.6rem 1.2rem', border: '1px solid var(--border)', borderRadius: '100px', fontSize: '0.85rem', backdropFilter: 'blur(10px)', background: 'rgba(255,255,255,0.02)' }}>
                   {skill}
                 </span>
               ))}
@@ -76,7 +105,7 @@ const Skills = () => {
 
           {/* Marquee Wide Card */}
           <div className="bento-card bento-span-4" style={{ display: 'flex', alignItems: 'center', overflow: 'hidden', padding: 0, height: '100%', minHeight: '150px' }}>
-            <div style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marqueeLeft 35s linear infinite', gap: '4rem', padding: '2rem' }}>
+            <div className="skills-marquee" style={{ display: 'flex', whiteSpace: 'nowrap', animation: 'marqueeLeft 35s linear infinite', gap: '4rem', padding: '2rem' }}>
               <span style={{ fontSize: '3rem', fontFamily: 'var(--font-display)', fontWeight: 800, color: 'var(--text-muted)' }}>REACT // NEXT.JS // TYPESCRIPT // NODE.JS // MONGODB // TAILWIND // </span>
               <span style={{ fontSize: '3rem', fontFamily: 'var(--font-display)', fontWeight: 800, color: 'var(--text-muted)' }}>REACT // NEXT.JS // TYPESCRIPT // NODE.JS // MONGODB // TAILWIND // </span>
             </div>

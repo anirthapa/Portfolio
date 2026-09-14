@@ -1,0 +1,11 @@
+.skills-section .bento-card > * { position: relative; z-index: 1; }
+.skill-chip { transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+.skill-chip:hover { color: #050505; background: #fff !important; border-color: #fff !important; transform: translateY(-3px); }
+.bento-card:hover .skills-marquee { animation-play-state: paused !important; }
+.skills-marquee span { transition: color 0.45s ease; }
+.bento-card:hover .skills-marquee span { color: #888 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-marquee { animation-play-state: paused !important; }
+  .skill-chip, .skills-marquee span { transition: none; }
+}
