@@ -1,121 +1,219 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const projects = [
+  {
+    title: 'Hostel Ease',
+    image: '/photos/hostel_ease.png',
+    width: 1095,
+    height: 715,
+    type: 'Web application',
+    tags: ['Full stack', 'Management system'],
+    description: 'Hostel booking and management, from finding a room to handling day-to-day operations.',
+  },
+  {
+    title: 'Baha Connect',
+    image: '/photos/baha_connect.png',
+    width: 1920,
+    height: 945,
+    type: 'Community platform',
+    tags: ['Next.js', 'Full stack'],
+    description: 'A community and home management platform connecting people across Nepal.',
+    link: 'https://ourbaha.com/',
+  },
+  {
+    title: 'Resume Forge',
+    image: '/photos/resume_forge.png',
+    width: 1904,
+    height: 948,
+    type: 'Web application',
+    tags: ['React', 'Vercel'],
+    description: 'A resume builder with customizable templates and a straightforward editing experience.',
+    link: 'https://resume-forge-5sbvtdsuk-anirs-projects-00fff74e.vercel.app/',
+  },
+  {
+    title: 'Habit Pulse',
+    image: '/photos/habit_pulse.png',
+    width: 1354,
+    height: 675,
+    type: 'Mobile application',
+    tags: ['React Native', 'Node.js'],
+    description: 'A mobile app for tracking habits, building daily routines, and following your progress.',
+  },
+];
+
+const Arrow = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" strokeWidth="1.5" />
+  </svg>
+);
 
 const Projects = () => {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      // Cinematic staggered clip-path reveal for projects
-      const cards = gsap.utils.toArray('.modern-project-card');
-      
-      cards.forEach((card, i) => {
-        const imgWrap = card.querySelector('.project-img-wrapper');
-        const textSection = card.querySelector('.project-info-modern');
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.utils.toArray('.project-entry').forEach((entry, index) => {
+          const fromLeft = index % 2 === 0;
+          const curtain = entry.querySelector('.project-curtain');
+          const timeline = gsap.timeline({
+            scrollTrigger: { trigger: entry, start: 'top 88%', once: true },
+          });
 
-        let tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play reverse play reverse"
-          }
+          timeline
+            .fromTo(entry.querySelector('.project-reveal'),
+              { clipPath: fromLeft ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)' },
+              { clipPath: 'inset(0 0% 0 0%)', duration: 1.25, ease: 'expo.inOut', clearProps: 'clipPath' },
+            )
+            .fromTo(curtain,
+              { scaleX: 1, transformOrigin: fromLeft ? 'left center' : 'right center' },
+              { scaleX: 0, duration: 0.85, ease: 'expo.inOut', clearProps: 'transform' }, 0.32,
+            )
+            .from(entry.querySelector('.project-image-entrance'),
+              {
+                scale: 1.18,
+                rotation: fromLeft ? -1.6 : 1.6,
+                duration: 1.65,
+                ease: 'power3.out',
+                clearProps: 'transform',
+              }, 0,
+            )
+            .from(entry.querySelectorAll('.project-detail-reveal'),
+              {
+                x: fromLeft ? 48 : -48,
+                y: 18,
+                opacity: 0,
+                duration: 0.85,
+                stagger: 0.075,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity',
+              }, 0.35,
+            )
+            .from(entry.querySelector('.project-action-icon'),
+              { scale: 0, rotation: -90, duration: 0.65, ease: 'back.out(1.7)', clearProps: 'transform' }, 0.72,
+            );
+
+          gsap.fromTo(entry.querySelector('.project-entry-progress'),
+            { scaleX: 0, transformOrigin: fromLeft ? 'left center' : 'right center' },
+            {
+              scaleX: 1,
+              ease: 'none',
+              scrollTrigger: { trigger: entry, start: 'top 78%', end: 'bottom 45%', scrub: 0.6 },
+            },
+          );
         });
+      }, containerRef);
+      return () => ctx.revert();
+    });
 
-        // The image wrapper opens up like a mechanical shutter
-        tl.fromTo(imgWrap, 
-          { clipPath: 'inset(100% 0 0 0)' },
-          { clipPath: 'inset(0% 0 0 0)', duration: 1.5, ease: "expo.inOut" }
-        )
-        // The image itself scales down dynamically inside the wrapper simultaneously
-        .fromTo(imgWrap.querySelector('img'),
-          { scale: 1.3 },
-          { scale: 1, duration: 1.5, ease: "expo.inOut" },
-          "<" // play at same time
-        )
-        // Text cleanly fades up organically after image is partially revealed
-        .fromTo(textSection,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" },
-          "-=1.1"
-        );
-      });
-    }, containerRef);
-    return () => ctx.revert();
+    media.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.utils.toArray('.project-entry').forEach((entry) => {
+          gsap.fromTo(entry.querySelector('.project-image-parallax'),
+            { yPercent: -5, scale: 1.035 },
+            {
+              yPercent: 5,
+              scale: 1,
+              ease: 'none',
+              scrollTrigger: { trigger: entry, start: 'top bottom', end: 'bottom top', scrub: 1 },
+            },
+          );
+        });
+      }, containerRef);
+      return () => ctx.revert();
+    });
+
+    media.add('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
+      const cleanups = [];
+      const ctx = gsap.context(() => {
+        gsap.utils.toArray('.project-media').forEach((element) => {
+          const image = element.querySelector('.project-image-hover');
+          const rotateX = gsap.quickTo(image, 'rotationX', { duration: 0.7, ease: 'power3.out' });
+          const rotateY = gsap.quickTo(image, 'rotationY', { duration: 0.7, ease: 'power3.out' });
+
+          const move = (event) => {
+            if (event.pointerType === 'touch') return;
+            const bounds = element.getBoundingClientRect();
+            const x = event.clientX - bounds.left;
+            const y = event.clientY - bounds.top;
+            rotateX((0.5 - y / bounds.height) * 5);
+            rotateY((x / bounds.width - 0.5) * 5);
+          };
+          const leave = () => { rotateX(0); rotateY(0); };
+          element.addEventListener('pointermove', move, { passive: true });
+          element.addEventListener('pointerleave', leave);
+          cleanups.push(() => {
+            element.removeEventListener('pointermove', move);
+            element.removeEventListener('pointerleave', leave);
+          });
+        });
+      }, containerRef);
+      return () => {
+        cleanups.forEach(cleanup => cleanup());
+        ctx.revert();
+      };
+    });
+
+    return () => media.revert();
   }, []);
 
-  const projectsData = [
-    {
-      title: "Hostel Ease",
-      img: "/photos/hostel_ease.png",
-      tags: ["Full-Stack", "Management System"],
-      desc: "A comprehensive hostel management system designed to streamline administration, booking, and daily operations effortlessly.",
-      link: "#"
-    },
-    {
-      title: "Baha Connect",
-      img: "/photos/baha_connect.png",
-      tags: ["Next.js", "Full-Stack"],
-      desc: "Nepal's premier community management tool bridging digital and physical boundaries.",
-      link: "https://ourbaha.com/"
-    },
-    {
-      title: "Resume Forge",
-      img: "/photos/resume_forge.png",
-      tags: ["React", "Vercel"],
-      desc: "A sleek, professional resume builder instantly creating stunning templates with zero friction.",
-      link: "https://resume-forge-5sbvtdsuk-anirs-projects-00fff74e.vercel.app/"
-    },
-    {
-      title: "Habit Pulse",
-      img: "/photos/habit_pulse.png", 
-      tags: ["React Native", "Node.js"],
-      desc: "Advanced habit tracking mobile application engineered for building incredibly productive daily routines.",
-      link: "#"
-    }
-  ];
-
   return (
-    <section className="section" id="projects" ref={containerRef}>
+    <section className="section projects-section" id="projects" ref={containerRef} aria-labelledby="projects-title">
       <div className="section-container">
-        <div className="section-header fade-up">
-          <h2 className="section-title">Selected Works</h2>
-          <p className="section-subtitle">A showcase of technical innovation and pixel-perfect design.</p>
-        </div>
+        <header className="projects-heading">
+          <h2 id="projects-title">Selected Works</h2>
+          <p>A selection of web <br />and mobile projects.</p>
+        </header>
 
-        <div>
-          {projectsData.map((proj, idx) => (
-            <div key={idx} className="modern-project-card" style={{ marginBottom: '10rem' }}>
-              <div className="project-img-wrapper" style={{ cursor: 'pointer' }}
-                   onMouseOver={(e) => { e.currentTarget.querySelector('img').style.transform = 'scale(1.08)' }}
-                   onMouseOut={(e) => { e.currentTarget.querySelector('img').style.transform = 'scale(1)' }}>
-                <img src={proj.img} alt={proj.title} onError={(e) => e.target.src = '/photos/Gitlogo.png'} />
-              </div>
-              
-              <div className="project-info-modern" style={{ padding: '2rem 0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
-                  <div style={{ width: '40px', height: '1px', background: 'var(--border-hover)' }}></div>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: 600 }}>
-                    {proj.tags.join(' // ')}
-                  </span>
+        <div className="projects-gallery">
+          {projects.map((project, index) => {
+            const href = project.link || project.image;
+            const action = project.link ? 'Visit website' : 'View preview';
+            const label = `${action}: ${project.title} (opens in a new tab)`;
+            return (
+              <article className="project-entry" key={project.title} aria-labelledby={`project-title-${index}`}>
+                <div className="project-visual">
+                  <div className="project-reveal">
+                    <a className="project-media" href={href} target="_blank" rel="noopener noreferrer" aria-label={label} data-cursor-label={project.link ? 'Visit' : 'Preview'} style={{ '--project-aspect': `${project.width} / ${project.height}` }}>
+                      <div className="project-image-parallax">
+                        <div className="project-image-entrance">
+                          <div className="project-image-hover">
+                            <img src={project.image} alt={`${project.title} interface`} width={project.width} height={project.height} loading="lazy" decoding="async" draggable="false" />
+                          </div>
+                        </div>
+                      </div>
+                      <span className="project-curtain" aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
-                
-                <h3 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', letterSpacing: '-0.02em', margin: '0 0 1.5rem 0', lineHeight: 1.1 }}>{proj.title}</h3>
-                
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.25rem', lineHeight: 1.6, marginBottom: '3rem', maxWidth: '500px' }}>
-                  {proj.desc}
-                </p>
-                
-                <a href={proj.link} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '1rem', padding: '1rem 2rem', border: '1px solid var(--border)', borderRadius: '100px', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 600, transition: 'all 0.4s ease' }}
-                   onMouseOver={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }}
-                   onMouseOut={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-primary)'; }}>
-                  View Live Site <i className="fas fa-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          ))}
+
+                <div className="project-details">
+                  <div className="project-topline project-detail-reveal">
+                    <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{project.type}</span>
+                  </div>
+                  <a className="project-title-link project-detail-reveal" href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                    <h3 id={`project-title-${index}`}>{project.title}</h3>
+                  </a>
+                  <p className="project-detail-reveal">{project.description}</p>
+                  <ul className="project-technologies project-detail-reveal" aria-label={`${project.title} technologies`}>
+                    {project.tags.map(tag => <li key={tag}>{tag}</li>)}
+                  </ul>
+                  <a className="project-action project-detail-reveal" href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                    <span>{action}</span>
+                    <span className="project-action-icon"><Arrow /></span>
+                  </a>
+                </div>
+                <span className="project-entry-progress" aria-hidden="true" />
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
