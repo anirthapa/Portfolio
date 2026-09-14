@@ -1,0 +1,67 @@
+.section-kicker {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: #6f6f6f;
+  font-family: Consolas, 'Liberation Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.services-list { display: flex; flex-direction: column; }
+
+.service-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55px minmax(220px, 0.9fr) minmax(280px, 1fr) 52px;
+  align-items: center;
+  gap: 2rem;
+  min-height: 150px;
+  padding: 2.5rem 0;
+  transition: padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--border-hover);
+}
+
+.service-row::before {
+  content: '';
+  position: absolute;
+  inset: 1px 0 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.055), transparent 65%);
+  opacity: 0;
+  transform: scaleY(0.7);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-row:hover { padding-left: 1.25rem; padding-right: 1.25rem; }
+.service-row:hover::before { opacity: 1; transform: scaleY(1); }
+.service-number { align-self: start; padding-top: 0.45rem; color: #666; font-family: Consolas, monospace; font-size: 0.68rem; }
+.service-row h3 { font-size: clamp(1.8rem, 3vw, 3.2rem); font-weight: 600; line-height: 1.1; transition: color 0.35s ease; }
+.service-row p { max-width: 470px; color: var(--text-secondary); font-size: 0.98rem; line-height: 1.8; }
+.service-arrow { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--border-hover); border-radius: 50%; color: #aaa; font-size: 1.25rem; transition: color 0.35s ease, background 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+.service-row:hover h3 { color: #fff; }
+.service-row:hover .service-arrow { color: #050505; background: #fff; transform: rotate(45deg); }
+
+@media (max-width: 900px) {
+  .service-row { grid-template-columns: 40px 1fr 52px; gap: 1.25rem; }
+  .service-row p { grid-column: 2 / 4; }
+}
+
+@media (max-width: 600px) {
+  .service-row { grid-template-columns: 32px 1fr; min-height: 0; padding: 2rem 0; }
+  .service-row p { grid-column: 2; font-size: 0.88rem; }
+  .service-arrow { display: none; }
+  .service-row:hover { padding-left: 0; padding-right: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-row, .service-row::before, .service-row h3, .service-arrow { transition: none; }
+}

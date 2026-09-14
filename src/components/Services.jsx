@@ -1,64 +1,81 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './Services.css';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const services = [
+  {
+    number: '01',
+    title: 'Web Development',
+    description: 'Fast, interactive frontend and backend systems built with React, Next.js, and Node.js.',
+  },
+  {
+    number: '02',
+    title: 'UI / UX Motion',
+    description: 'Responsive interfaces with motion that guides attention and makes every interaction feel intentional.',
+  },
+  {
+    number: '03',
+    title: 'APIs & Databases',
+    description: 'Secure REST APIs and dependable SQL or NoSQL data layers designed for real-world scale.',
+  },
+];
 
 const Services = () => {
   const containerRef = useRef(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.fromTo(".service-item", 
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            toggleActions: "play reverse play reverse"
-          }
-        }
-      );
-    }, containerRef);
-    return () => ctx.revert();
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.utils.toArray('.service-row').forEach((row, index) => {
+          const timeline = gsap.timeline({
+            scrollTrigger: { trigger: row, start: 'top 90%', once: true },
+          });
+
+          timeline
+            .from(row.querySelector('.service-rule'), {
+              scaleX: 0,
+              transformOrigin: index % 2 ? 'right center' : 'left center',
+              duration: 0.9,
+              ease: 'expo.out',
+            })
+            .from(row.querySelectorAll('.service-reveal'), {
+              y: 30,
+              opacity: 0,
+              duration: 0.75,
+              stagger: 0.07,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+            }, '-=0.55');
+        });
+      }, containerRef);
+      return () => ctx.revert();
+    });
+
+    return () => media.revert();
   }, []);
 
   return (
-    <section className="section" id="services" ref={containerRef}>
+    <section className="section services-section" id="services" ref={containerRef}>
       <div className="section-container">
-        <div className="section-header fade-up">
+        <div className="section-header">
           <h2 className="section-title">What I Do</h2>
-          <p className="section-subtitle">Bridging the gap between design and robust engineering.</p>
+          <p className="section-subtitle">Design thinking backed by reliable engineering.</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
-          
-          <div className="service-item" style={{ borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>01 / Web Development</h3>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              I build fast, interactive, and highly scalable frontend and backend systems. React, Next.js, and Node.js are my architectural weapons of choice.
-            </p>
-          </div>
-
-          <div className="service-item" style={{ borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>02 / UI/UX Animations</h3>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              I breathe life into static designs. By leveraging GSAP and advanced CSS mathematics, I create award-winning, fluid, interactive user experiences.
-            </p>
-          </div>
-
-          <div className="service-item" style={{ borderTop: '1px solid var(--border)', paddingTop: '2rem' }}>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>03 / API & Databases</h3>
-            <p style={{ color: 'var(--text-secondary)' }}>
-              Designing immaculate, secure, and lightning-fast RESTful APIs backed by robust SQL or NoSQL database architectures.
-            </p>
-          </div>
-
+        <div className="services-list">
+          {services.map((service) => (
+            <article className="service-row" key={service.number}>
+              <span className="service-rule" aria-hidden="true" />
+              <span className="service-number service-reveal">{service.number}</span>
+              <h3 className="service-reveal">{service.title}</h3>
+              <p className="service-reveal">{service.description}</p>
+              <span className="service-arrow service-reveal" aria-hidden="true">↗</span>
+            </article>
+          ))}
         </div>
       </div>
     </section>
