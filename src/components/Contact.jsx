@@ -1,24 +1,43 @@
 import React from 'react';
+import './Contact.css';
+
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/Aneer-Thapa1' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anir-jung-thapa-270a922bb/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/aneer.codes/' },
+];
 
 const Contact = () => {
   return (
-    <section className="section" id="contact" style={{ minHeight: '80vh', borderTop: '1px solid var(--border)', marginTop: '8rem' }}>
-      <div className="section-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+    <section className="section contact-section" id="contact">
+      <div className="contact-marquee" aria-hidden="true">
+        <div>LET’S BUILD — LET’S BUILD — LET’S BUILD — LET’S BUILD —</div>
+      </div>
 
-        <p style={{ textTransform: 'uppercase', letterSpacing: '4px', color: 'var(--text-secondary)', marginBottom: '2rem' }} className="fade-up">
-          What's Next
-        </p>
+      <div className="section-container contact-container">
+        <p className="contact-kicker fade-up">Have a project in mind?</p>
 
-        <a href="mailto:anir234thapa@gmail.com" className="huge-btn fade-up" style={{ textAlign: 'center' }}>
-          LET'S BUILD<br /><span className="text-gradient">TOGETHER.</span>
+        <a
+          href="mailto:anir234thapa@gmail.com"
+          className="contact-main-link fade-up"
+          data-magnetic
+          data-cursor-label="Email"
+        >
+          <span>LET’S BUILD</span>
+          <span className="text-gradient">TOGETHER.</span>
+          <span className="contact-main-arrow" aria-hidden="true">↗</span>
         </a>
 
-        <div style={{ marginTop: '5rem', display: 'flex', gap: '3rem', color: 'var(--text-secondary)' }} className="fade-up">
-          <a href="https://github.com/Aneer-Thapa1" style={{ transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>GITHUB</a>
-          <a href="https://www.linkedin.com/in/anir-jung-thapa-270a922bb/" style={{ transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>LINKEDIN</a>
-          <a href="https://www.instagram.com/aneer.codes/" style={{ transition: 'color 0.3s' }} onMouseOver={(e) => e.target.style.color = '#fff'} onMouseOut={(e) => e.target.style.color = 'var(--text-secondary)'}>INSTAGRAM</a>
+        <div className="contact-footer fade-up">
+          <p>Open to collaborations, freelance work, and interesting conversations.</p>
+          <nav className="contact-socials" aria-label="Social links">
+            {socials.map(({ label, href }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" data-magnetic>
+                {label}<span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </nav>
         </div>
-
       </div>
     </section>
   );
