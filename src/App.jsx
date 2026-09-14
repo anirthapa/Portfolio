@@ -21,32 +21,80 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [loading, setLoading] = useState(true);
   const appRef = useRef(null);
+  const progressRef = useRef(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const fadeElements = gsap.utils.toArray('.fade-up');
-      fadeElements.forEach((el) => {
-        gsap.fromTo(el, 
-          { y: 60, opacity: 0, scale: 0.95, rotation: 1 }, 
-          {
-            y: 0, 
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 1.2,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-              toggleActions: "play reverse play reverse" 
-            }
-          }
-        );
-      });
-    }, appRef); // Scope to app container
+    if (loading) return;
 
-    return () => ctx.revert();
-  }, []);
+    const media = gsap.matchMedia();
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const cleanups = [];
+      const ctx = gsap.context(() => {
+        gsap.set(progressRef.current, { scaleX: 0, transformOrigin: 'left center' });
+        ScrollTrigger.create({
+          start: 0,
+          end: 'max',
+          onUpdate: ({ progress }) => gsap.set(progressRef.current, { scaleX: progress }),
+        });
+
+        gsap.utils.toArray('.section-title, .projects-heading h2').forEach((heading) => {
+          gsap.fromTo(heading,
+            { y: 70, opacity: 0, filter: 'blur(10px)', clipPath: 'inset(0 0 100% 0)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              clipPath: 'inset(0 0 0% 0)',
+              duration: 1.15,
+              ease: 'expo.out',
+              scrollTrigger: { trigger: heading, start: 'top 88%', once: true },
+            },
+          );
+        });
+
+        gsap.utils.toArray('.fade-up:not(.section-header)').forEach((element) => {
+          gsap.fromTo(element,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 90%', once: true },
+            },
+          );
+        });
+
+        gsap.utils.toArray('[data-magnetic]').forEach((element) => {
+          const move = (event) => {
+            const bounds = element.getBoundingClientRect();
+            gsap.to(element, {
+              x: (event.clientX - bounds.left - bounds.width / 2) * 0.16,
+              y: (event.clientY - bounds.top - bounds.height / 2) * 0.2,
+              duration: 0.45,
+              ease: 'power3.out',
+              overwrite: true,
+            });
+          };
+          const leave = () => gsap.to(element, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.35)' });
+          element.addEventListener('pointermove', move);
+          element.addEventListener('pointerleave', leave);
+          cleanups.push(() => {
+            element.removeEventListener('pointermove', move);
+            element.removeEventListener('pointerleave', leave);
+          });
+        });
+      }, appRef);
+
+      return () => {
+        cleanups.forEach((cleanup) => cleanup());
+        ctx.revert();
+      };
+    });
+
+    ScrollTrigger.refresh();
+    return () => media.revert();
+  }, [loading]);
 
   // Passing root means this Lenis instance controls the entire page body scroll natively
   return (
@@ -58,14 +106,15 @@ function App() {
 
       {/* The Loader mounts over everything with z-index 100000. It slides up and unmounts itself. */}
       {loading && <Loader onComplete={() => setLoading(false)} />}
-      
+
+      <div className="scroll-progress" ref={progressRef} aria-hidden="true" />
       <CustomCursor />
       <div className="grain-overlay"></div>
 
-      {/* The content sits underneath. The Hero animation is delayed to sync with the loader sliding up. */}
+      {/* Start the hero reveal when the loader finishes. */}
       <div ref={appRef} className="app-content-wrapper">
         <Navbar />
-        <Hero />
+        <Hero isReady={!loading} />
         <Services />
         <Skills />
         <Experience />

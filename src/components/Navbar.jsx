@@ -1,45 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
+const links = [
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Work' },
+  { id: 'contact', label: 'Contact' },
+];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const handleScroll = () => {
+    let frame = 0;
+
+    const updateNavigation = () => {
+      frame = 0;
       setIsScrolled(window.scrollY > 50);
+
+      const marker = window.scrollY + window.innerHeight * 0.45;
+      const sections = ['hero', ...links.map(({ id }) => id)];
+      const current = sections.reduce((active, id) => {
+        const section = document.getElementById(id);
+        return section && section.offsetTop <= marker ? id : active;
+      }, 'hero');
+      setActiveSection(current);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const handleScroll = () => {
+      if (!frame) frame = requestAnimationFrame(updateNavigation);
+    };
+
+    updateNavigation();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
-  const scrollToSection = (e, targetId) => {
-    e.preventDefault();
-    const target = document.getElementById(targetId);
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop,
-        behavior: "smooth",
-      });
-    }
+  const scrollToSection = (event, targetId) => {
+    event.preventDefault();
+    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-      padding: isScrolled ? '1rem 0' : '2rem 0',
-      background: isScrolled ? 'rgba(5, 5, 5, 0.8)' : 'transparent',
-      backdropFilter: isScrolled ? 'blur(10px)' : 'none',
-      borderBottom: isScrolled ? '1px solid var(--border)' : '1px solid transparent',
-      transition: 'all 0.4s ease'
-    }}>
-      <div className="nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '2px', color: '#fff' }}>
+    <nav className={`site-nav ${isScrolled ? 'is-scrolled' : ''}`} aria-label="Primary navigation">
+      <div className="nav-container site-nav-inner">
+        <a
+          className="site-logo"
+          href="#hero"
+          onClick={(event) => scrollToSection(event, 'hero')}
+          data-magnetic
+        >
           ANIR.
         </a>
         <div className="nav-links">
-          <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} style={{ color: 'var(--text-secondary)' }}>Skills</a>
-          <a href="#experience" onClick={(e) => scrollToSection(e, 'experience')} style={{ color: 'var(--text-secondary)' }}>Experience</a>
-          <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} style={{ color: 'var(--text-secondary)' }}>Work</a>
-          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} style={{ color: '#fff' }}>Contact</a>
+          {links.map(({ id, label }) => (
+            <a
+              key={id}
+              className={`nav-link ${activeSection === id ? 'is-active' : ''}`}
+              href={`#${id}`}
+              onClick={(event) => scrollToSection(event, id)}
+              data-magnetic
+            >
+              {label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
