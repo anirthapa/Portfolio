@@ -1,5 +1,5 @@
-import Portfolio from './portfolio';
+import LegacyPortfolio from './legacy-portfolio';
 
 export default function Page() {
-  return <Portfolio />;
+  return <LegacyPortfolio />;
 }

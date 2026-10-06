@@ -130,6 +130,7 @@
 .project-action {
   display: inline-flex;
   align-items: center;
+  vertical-align: middle;
   gap: 1.2rem;
   margin-top: 2.5rem;
   color: #fff;
@@ -147,6 +148,21 @@
 }
 .project-action-icon svg { width: 17px; height: 17px; }
 .project-action:hover .project-action-icon { background: #fff; color: #050505; transform: translate(3px, -3px); }
+.project-source-link {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  gap: 0.45rem;
+  margin-left: 1.5rem;
+  align-self: flex-start;
+  color: #aaa;
+  font-size: 0.78rem;
+  text-decoration: none;
+  border-bottom: 1px solid #ffffff40;
+  padding-bottom: 0.35rem;
+  transition: color 250ms ease, border-color 250ms ease;
+}
+.project-source-link:hover { color: #fff; border-color: #fff; }
 .project-entry-progress {
   position: absolute;
   left: 0;

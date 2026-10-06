@@ -471,10 +471,10 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
 }
 
-.scroll-to-top i {
+.scroll-to-top svg {
   transition: transform 0.3s ease;
 }
 
-.scroll-to-top:hover i {
+.scroll-to-top:hover svg {
   transform: translateY(-3px);
 }

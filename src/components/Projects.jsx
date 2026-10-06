@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from "react";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Projects.css';
@@ -7,42 +7,73 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: 'Hostel Ease',
-    image: '/photos/hostel_ease.png',
+    title: "Hostel Ease",
+    image: "/photos/hostel_ease.webp",
     width: 1095,
     height: 715,
-    type: 'Web application',
-    tags: ['Full stack', 'Management system'],
-    description: 'Hostel booking and management, from finding a room to handling day-to-day operations.',
+    type: "Web application",
+    tags: ["Full stack", "Management system"],
+    description:
+      "Hostel booking and management, from finding a room to handling day-to-day operations.",
+    source: "https://github.com/anirthapa/Hostle-Management-System",
   },
   {
-    title: 'Baha Connect',
-    image: '/photos/baha_connect.png',
+    title: "Baha Connect",
+    image: "/photos/baha_connect.webp",
     width: 1920,
     height: 945,
-    type: 'Community platform',
-    tags: ['Next.js', 'Full stack'],
-    description: 'A community and home management platform connecting people across Nepal.',
-    link: 'https://ourbaha.com/',
+    type: "Community platform",
+    tags: ["Next.js", "Full stack"],
+    description:
+      "A community and home management platform connecting people across Nepal.",
+    link: "https://ourbaha.com/",
   },
   {
-    title: 'Resume Forge',
-    image: '/photos/resume_forge.png',
+    title: "Resume Forge",
+    image: "/photos/resume_forge.webp",
     width: 1904,
     height: 948,
-    type: 'Web application',
-    tags: ['React', 'Vercel'],
-    description: 'A resume builder with customizable templates and a straightforward editing experience.',
-    link: 'https://resume-forge-5sbvtdsuk-anirs-projects-00fff74e.vercel.app/',
+    type: "Web application",
+    tags: ["React", "Vercel"],
+    description:
+      "A resume builder with customizable templates and a straightforward editing experience.",
+    link: "https://resume-forge-rust.vercel.app/",
+    source: "https://github.com/anirthapa/Resume-Builder",
   },
   {
-    title: 'Habit Pulse',
-    image: '/photos/habit_pulse.png',
+    title: "Habit Pulse",
+    image: "/photos/habit_pulse.webp",
     width: 1354,
     height: 675,
-    type: 'Mobile application',
-    tags: ['React Native', 'Node.js'],
-    description: 'A mobile app for tracking habits, building daily routines, and following your progress.',
+    type: "Mobile application",
+    tags: ["React Native", "Node.js"],
+    description:
+      "A mobile app for tracking habits, building daily routines, and following your progress.",
+    source: "https://github.com/anirthapa/Habit-Pulse",
+  },
+  {
+    title: "Multiplayer Ludo",
+    image: "/photos/ludo.webp",
+    width: 1280,
+    height: 800,
+    type: "Interactive web game",
+    tags: ["TypeScript", "Multiplayer"],
+    description:
+      "A multiplayer take on the classic board game, made to play with friends online.",
+    link: "https://multiplayer-ludo-lyart.vercel.app/",
+    source: "https://github.com/anirthapa/multiplayer-ludo",
+  },
+  {
+    title: "Los Santos Wire",
+    image: "/photos/los_santos_wire.webp",
+    width: 1280,
+    height: 800,
+    type: "Editorial website",
+    tags: ["TypeScript", "Editorial"],
+    description:
+      "An editorial home for GTA Online news, guides, and the latest updates.",
+    link: "https://los-santos-wire.vercel.app/",
+    source: "https://github.com/anirthapa/GTA-ONLINE-UPDATE",
   },
 ];
 
@@ -173,14 +204,14 @@ const Projects = () => {
 
         <div className="projects-gallery">
           {projects.map((project, index) => {
-            const href = project.link || project.image;
-            const action = project.link ? 'Visit website' : 'View preview';
+            const href = project.link || project.source || project.image;
+            const action = project.link ? 'Visit website' : project.source ? 'View source' : 'View preview';
             const label = `${action}: ${project.title} (opens in a new tab)`;
             return (
               <article className="project-entry" key={project.title} aria-labelledby={`project-title-${index}`}>
                 <div className="project-visual">
                   <div className="project-reveal">
-                    <a className="project-media" href={href} target="_blank" rel="noopener noreferrer" aria-label={label} data-cursor-label={project.link ? 'Visit' : 'Preview'} style={{ '--project-aspect': `${project.width} / ${project.height}` }}>
+                    <a className="project-media" href={href} target="_blank" rel="noopener noreferrer" aria-label={label} data-cursor-label={project.link ? 'Visit' : project.source ? 'Code' : 'Preview'} style={{ '--project-aspect': `${project.width} / ${project.height}` }}>
                       <div className="project-image-parallax">
                         <div className="project-image-entrance">
                           <div className="project-image-hover">
@@ -209,6 +240,150 @@ const Projects = () => {
                     <span>{action}</span>
                     <span className="project-action-icon"><Arrow /></span>
                   </a>
+                  {project.source && project.link && (
+                    <a className="project-source-link project-detail-reveal" href={project.source} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code (opens in a new tab)`}>
+                      Source code <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
+                </div>
+                <span className="project-entry-progress" aria-hidden="true" />
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Projects;
+          cleanups.forEach((cleanup) => cleanup());
+          ctx.revert();
+        };
+      },
+    );
+
+    return () => media.revert();
+  }, []);
+
+  return (
+    <section
+      className="section projects-section"
+      id="projects"
+      ref={containerRef}
+      aria-labelledby="projects-title"
+    >
+      <div className="section-container">
+        <header className="projects-heading">
+          <h2 id="projects-title">Selected Works</h2>
+          <p>
+            A selection of web <br />
+            and mobile projects.
+          </p>
+        </header>
+
+        <div className="projects-gallery">
+          {projects.map((project, index) => {
+            const href = project.link || project.source || project.image;
+            const action = project.link
+              ? "Visit website"
+              : project.source
+                ? "View source"
+                : "View preview";
+            const label = `${action}: ${project.title} (opens in a new tab)`;
+            return (
+              <article
+                className="project-entry"
+                key={project.title}
+                aria-labelledby={`project-title-${index}`}
+              >
+                <div className="project-visual">
+                  <div className="project-reveal">
+                    <a
+                      className="project-media"
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      data-cursor-label={
+                        project.link
+                          ? "Visit"
+                          : project.source
+                            ? "Code"
+                            : "Preview"
+                      }
+                      style={{
+                        "--project-aspect": `${project.width} / ${project.height}`,
+                      }}
+                    >
+                      <div className="project-image-parallax">
+                        <div className="project-image-entrance">
+                          <div className="project-image-hover">
+                            <img
+                              src={project.image}
+                              alt={`${project.title} interface`}
+                              width={project.width}
+                              height={project.height}
+                              loading="lazy"
+                              decoding="async"
+                              draggable="false"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <span className="project-curtain" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="project-details">
+                  <div className="project-topline project-detail-reveal">
+                    <span className="project-number">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{project.type}</span>
+                  </div>
+                  <a
+                    className="project-title-link project-detail-reveal"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                  >
+                    <h3 id={`project-title-${index}`}>{project.title}</h3>
+                  </a>
+                  <p className="project-detail-reveal">{project.description}</p>
+                  <ul
+                    className="project-technologies project-detail-reveal"
+                    aria-label={`${project.title} technologies`}
+                  >
+                    {project.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                  <a
+                    className="project-action project-detail-reveal"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                  >
+                    <span>{action}</span>
+                    <span className="project-action-icon">
+                      <Arrow />
+                    </span>
+                  </a>
+                  {project.source && project.link && (
+                    <a
+                      className="project-source-link project-detail-reveal"
+                      href={project.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`View ${project.title} source code (opens in a new tab)`}
+                    >
+                      Source code <span aria-hidden="true">↗</span>
+                    </a>
+                  )}
                 </div>
                 <span className="project-entry-progress" aria-hidden="true" />
               </article>

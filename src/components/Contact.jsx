@@ -2,7 +2,7 @@ import React from 'react';
 import './Contact.css';
 
 const socials = [
-  { label: 'GitHub', href: 'https://github.com/Aneer-Thapa1' },
+  { label: 'GitHub', href: 'https://github.com/anirthapa' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/anir-jung-thapa-270a922bb/' },
   { label: 'Instagram', href: 'https://www.instagram.com/aneer.codes/' },
 ];

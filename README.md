@@ -1,6 +1,6 @@
 ﻿# Anir Jung Thapa — Portfolio
 
-A Next.js portfolio for [anirjungthapa.com.np](https://anirjungthapa.com.np), with selected work, project filters, theme switching, quick navigation (`Ctrl/⌘ + K`), and an easy way to get in touch.
+A Next.js portfolio for [anirjungthapa.com.np](https://anirjungthapa.com.np). It keeps the original dark design, animated network, custom cursor, scroll effects, and selected work.
 
 ## Run locally
 
@@ -15,4 +15,4 @@ Open `http://localhost:3000`. Run `npm run build` to generate the static product
 
 The repository includes `netlify.toml`. Netlify should use `npm run build` and publish `out`. Connect this repository to the existing Netlify site and deploy the `main` branch. No environment variables are required.
 
-Project details and URLs live in `app/portfolio.jsx`. The previous Vite implementation is retained in `src/` for reference; Next.js serves the `app/` directory.
+The App Router entry point is in `app/`. The portfolio components and project URLs live in `src/`.
