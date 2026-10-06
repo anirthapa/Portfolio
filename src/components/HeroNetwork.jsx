@@ -28,6 +28,10 @@ const HeroNetwork = ({ heroRef, active }) => {
 
     const draw = (time) => {
       frame = 0;
+      if (!motion.matches && lastTime && time - lastTime < 32) {
+        if (visible && !document.hidden) frame = requestAnimationFrame(draw);
+        return;
+      }
       const step = lastTime ? Math.min((time - lastTime) / 16.667, 2) : 1;
       lastTime = time;
       const pointerEase = 1 - Math.pow(0.65, step);
@@ -113,7 +117,7 @@ const HeroNetwork = ({ heroRef, active }) => {
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const count = Math.min(140, Math.max(40, Math.round(width * height / 11000)));
+      const count = Math.min(95, Math.max(32, Math.round(width * height / 14000)));
       particles = Array.from({ length: count }, () => ({
         baseX: Math.random() * width,
         baseY: Math.random() * height,

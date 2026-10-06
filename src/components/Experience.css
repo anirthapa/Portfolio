@@ -1,3 +1,4 @@
+.experience-section { overflow: hidden; }
 .experience-list { position: relative; padding-left: 3.5rem; }
 .experience-track, .experience-progress { position: absolute; top: 1rem; bottom: 1rem; left: 6px; width: 1px; }
 .experience-track { background: var(--border); }

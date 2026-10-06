@@ -1,49 +1,53 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import './Loader.css';
 
 const Loader = ({ onComplete }) => {
-  const [progress, setProgress] = useState(0);
   const loaderRef = useRef(null);
   const counterRef = useRef(null);
   const textRef = useRef(null);
 
   useEffect(() => {
     // Animate the counter from 0 to 100
-    let progressValue = { val: 0 };
+    const progressValue = { val: 0 };
+    let exitTimeline;
     
-    // Total loading sequence takes about 3 seconds
-    gsap.to(progressValue, {
+    // Keep the original counter and exit sequence brief so the hero appears promptly.
+    const counterTween = gsap.to(progressValue, {
       val: 100,
-      duration: 2.2,
+      duration: 0.65,
       ease: "power2.inOut",
       onUpdate: () => {
-        setProgress(Math.round(progressValue.val));
+        counterRef.current.textContent = Math.round(progressValue.val);
       },
       onComplete: () => {
         // Exit animation sequence once 100% is reached
-        const tl = gsap.timeline({
+        exitTimeline = gsap.timeline({
           onComplete: onComplete
         });
 
         // 1. Move the text out
-        tl.to([counterRef.current, textRef.current], {
+        exitTimeline.to([counterRef.current, textRef.current], {
           y: -50,
           opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          duration: 0.2,
+          stagger: 0.04,
           ease: "power3.in"
-        }, "+=0.3"); // Wait 0.3s at 100%
+        }, "+=0.05");
 
         // 2. Slide the entire loader up incredibly smoothly
-        tl.to(loaderRef.current, {
+        exitTimeline.to(loaderRef.current, {
           yPercent: -100,
-          duration: 1,
+          duration: 0.4,
           ease: "power4.inOut"
         });
       }
     });
 
+    return () => {
+      counterTween.kill();
+      exitTimeline?.kill();
+    };
   }, [onComplete]);
 
   return (
@@ -53,7 +57,7 @@ const Loader = ({ onComplete }) => {
       <div className="loader-center-content">
         <div className="loader-counter-wrapper">
           <h1 ref={counterRef} className="loader-counter">
-            {progress}
+            0
           </h1>
           <span className="loader-percent">%</span>
         </div>

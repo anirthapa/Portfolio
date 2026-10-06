@@ -1,4 +1,8 @@
 import '../src/index.css';
+import { Inter, Montserrat } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat', display: 'swap' });
 
 export const metadata = {
   metadataBase: new URL('https://anirjungthapa.com.np'),
@@ -17,7 +21,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
       <body>{children}</body>
     </html>
   );

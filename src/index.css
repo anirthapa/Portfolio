@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@200;300;400;600;800&display=swap');
-
 /* ===== Core Aesthetics: Minimalist High-End Tech ===== */
 :root {
   --bg-primary: #050505;
@@ -17,8 +15,8 @@
   --accent: #ffffff; /* Stark white as accent */
   --accent-glow: rgba(255, 255, 255, 0.1);
   
-  --font-primary: 'Inter', sans-serif;
-  --font-display: 'Montserrat', sans-serif;
+  --font-primary: var(--font-inter), sans-serif;
+  --font-display: var(--font-montserrat), sans-serif;
   
   --radius-sm: 8px;
   --radius-md: 16px;

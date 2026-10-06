@@ -1,6 +1,7 @@
 .section.projects-section {
   padding: 8rem 0 4rem;
   scroll-margin-top: 3rem;
+  overflow: hidden;
 }
 
 .projects-heading {

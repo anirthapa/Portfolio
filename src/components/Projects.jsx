@@ -31,12 +31,12 @@ const projects = [
   {
     title: "Resume Forge",
     image: "/photos/resume_forge.webp",
-    width: 1904,
-    height: 948,
+    width: 1600,
+    height: 800,
     type: "Web application",
     tags: ["React", "Vercel"],
     description:
-      "A resume builder with customizable templates and a straightforward editing experience.",
+      "A free resume studio with considered templates, simple editing, and polished PDF exports.",
     link: "https://resume-forge-rust.vercel.app/",
     source: "https://github.com/anirthapa/Resume-Builder",
   },

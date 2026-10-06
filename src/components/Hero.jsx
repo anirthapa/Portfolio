@@ -21,11 +21,11 @@ const Hero = ({ isReady = true }) => {
       const ctx = gsap.context(() => {
         gsap.fromTo([text1Ref.current, text2Ref.current],
           { y: 80, opacity: 0, rotateX: 60, transformOrigin: '0% 50%' },
-          { y: 0, opacity: 1, rotateX: 0, duration: 1.6, stagger: 0.15, ease: 'expo.out' },
+          { y: 0, opacity: 1, rotateX: 0, duration: 0.9, stagger: 0.1, ease: 'expo.out' },
         );
         gsap.fromTo(subRef.current,
           { opacity: 0, scale: 0.9 },
-          { opacity: 1, scale: 1, duration: 1.2, delay: 0.5, ease: 'power3.out' },
+          { opacity: 1, scale: 1, duration: 0.8, delay: 0.25, ease: 'power3.out' },
         );
         [parallax1Ref.current, parallax2Ref.current].forEach((line, index) => {
           gsap.to(line, {
