@@ -39,13 +39,12 @@ function App() {
 
         gsap.utils.toArray('.section-title, .projects-heading h2').forEach((heading) => {
           gsap.fromTo(heading,
-            { y: 70, opacity: 0, filter: 'blur(10px)', clipPath: 'inset(0 0 100% 0)' },
+            { y: 36, opacity: 0, clipPath: 'inset(0 0 100% 0)' },
             {
               y: 0,
               opacity: 1,
-              filter: 'blur(0px)',
               clipPath: 'inset(0 0 0% 0)',
-              duration: 1.15,
+              duration: 0.95,
               ease: 'expo.out',
               scrollTrigger: { trigger: heading, start: 'top 88%', once: true },
             },
@@ -66,6 +65,7 @@ function App() {
         });
 
         gsap.utils.toArray('[data-magnetic]').forEach((element) => {
+          if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
           const move = (event) => {
             const bounds = element.getBoundingClientRect();
             gsap.to(element, {
@@ -98,7 +98,7 @@ function App() {
 
   // Passing root means this Lenis instance controls the entire page body scroll natively
   return (
-    <ReactLenis root options={{ smoothTouch: true, wheelMultiplier: 1.2 }}>
+    <ReactLenis root options={{ smoothWheel: true, syncTouch: false, lerp: 0.1, wheelMultiplier: 1, respectReducedMotion: true }}>
       <Helmet>
         <title>Anir Jung Thapa — Exceptional Digital Experiences</title>
         <meta name="description" content="Minimalist, modern portfolio of Anir Jung Thapa, Full Stack Developer." />
