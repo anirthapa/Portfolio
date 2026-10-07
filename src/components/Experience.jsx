@@ -65,11 +65,12 @@ const Experience = () => {
   return (
     <section className="section experience-section" id="experience" ref={sectionRef}>
       <div className="section-container">
-        <div className="section-header">
-          <span className="section-kicker">Timeline / 2024—Now</span>
-          <h2 className="section-title">Experience</h2>
-          <p className="section-subtitle">Learning, building, and taking on more responsibility.</p>
-        </div>
+        <header className="section-header editorial-heading">
+          <div>
+            <h2 className="section-title">Experience<span className="heading-period">.</span></h2>
+          </div>
+          <p className="section-subtitle">Learning, building, and taking on more responsibility with every project.</p>
+        </header>
 
         <div className="experience-list">
           <span className="experience-track" aria-hidden="true" />

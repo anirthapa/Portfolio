@@ -61,10 +61,12 @@ const Services = () => {
   return (
     <section className="section services-section" id="services" ref={containerRef}>
       <div className="section-container">
-        <div className="section-header">
-          <h2 className="section-title">What I Do</h2>
-          <p className="section-subtitle">Design thinking backed by reliable engineering.</p>
-        </div>
+        <header className="section-header editorial-heading">
+          <div>
+            <h2 className="section-title">What I Do<span className="heading-period">.</span></h2>
+          </div>
+          <p className="section-subtitle">Web development, interface motion, and the systems behind them.</p>
+        </header>
 
         <div className="services-list">
           {services.map((service) => (

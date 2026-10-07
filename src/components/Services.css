@@ -1,14 +1,5 @@
-.section-kicker {
-  display: block;
-  margin-bottom: 1.2rem;
-  color: #6f6f6f;
-  font-family: Consolas, 'Liberation Mono', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.services-list { display: flex; flex-direction: column; }
+.services-section { min-height: 0; }
+.services-list { display: flex; flex-direction: column; border-bottom: 1px solid var(--border-hover); }
 
 .service-row {
   position: relative;
@@ -48,7 +39,7 @@
 .service-row p { max-width: 470px; color: var(--text-secondary); font-size: 0.98rem; line-height: 1.8; }
 .service-arrow { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--border-hover); border-radius: 50%; color: #aaa; font-size: 1.25rem; transition: color 0.35s ease, background 0.35s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
 .service-row:hover h3 { color: #fff; }
-.service-row:hover .service-arrow { color: #050505; background: #fff; transform: rotate(45deg); }
+.service-row:hover .service-arrow { color: #050505; background: #fff; transform: translate(3px, -3px); }
 
 @media (max-width: 900px) {
   .service-row { grid-template-columns: 40px 1fr 52px; gap: 1.25rem; }

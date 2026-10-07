@@ -198,7 +198,9 @@ const Projects = () => {
     <section className="section projects-section" id="projects" ref={containerRef} aria-labelledby="projects-title">
       <div className="section-container">
         <header className="projects-heading">
-          <h2 id="projects-title">Selected Works</h2>
+          <div>
+            <h2 id="projects-title">Selected Works<span className="heading-period">.</span></h2>
+          </div>
           <p>A selection of web <br />and mobile projects.</p>
         </header>
 

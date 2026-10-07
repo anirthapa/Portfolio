@@ -10,6 +10,7 @@ const links = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -42,8 +43,18 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isMenuOpen]);
+
   const scrollToSection = (event, targetId) => {
     event.preventDefault();
+    setIsMenuOpen(false);
     document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -58,7 +69,17 @@ const Navbar = () => {
         >
           ANIR.
         </a>
-        <div className="nav-links">
+        <button
+          className="nav-menu-toggle"
+          type="button"
+          aria-controls="primary-nav-links"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          {isMenuOpen ? 'Close' : 'Menu'}
+          <span aria-hidden="true">{isMenuOpen ? '×' : '+'}</span>
+        </button>
+        <div className={`nav-links ${isMenuOpen ? 'is-open' : ''}`} id="primary-nav-links">
           {links.map(({ id, label }) => (
             <a
               key={id}
