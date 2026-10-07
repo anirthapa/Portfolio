@@ -1,0 +1,20 @@
+.interface-study { position: absolute; inset: 0 0 auto; height: 380px; overflow: hidden; background: radial-gradient(ellipse at 50% 45%, #252525 0%, #101010 48%, #080808 78%); }
+.interface-study::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(#ffffff09 1px, transparent 1px), linear-gradient(90deg, #ffffff09 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse, #000, transparent 72%); }
+.interface-study-caption { position: absolute; z-index: 2; top: 24px; left: 28px; right: 28px; display: flex; justify-content: space-between; gap: 1rem; color: #d0d0d0; font: 12px Consolas, monospace; letter-spacing: .07em; }
+.interface-study-caption span:last-child { color: #b5b5b5; }
+.interface-stage { position: absolute; inset: 30px 0 55px; cursor: grab; touch-action: pan-y; }
+.interface-stage.is-dragging { cursor: grabbing; }
+.interface-stage:focus-visible { outline: 1px solid #777; outline-offset: -15px; border-radius: 20px; }
+.interface-stage canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .65s; }
+.interface-study.is-ready canvas { opacity: 1; }
+.interface-fallback { position: absolute; width: 80%; height: auto; left: 10%; top: 18%; filter: grayscale(1); transform: perspective(800px) rotateY(-10deg) rotateX(6deg); border: 1px solid #555; border-radius: 5px; box-shadow: 12px 24px 35px #000; transition: opacity .5s; }
+.interface-study.is-ready .interface-fallback { opacity: 0; }
+.interface-build-caption { position: absolute; left: 28px; right: 28px; bottom: 22px; color: #e1e1e1; font: 12px var(--font-primary); }
+.interface-build-caption > span { display: block; margin-bottom: 12px; }
+.interface-build-caption ol { display: flex; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.interface-build-caption li { flex: 1; padding-top: 7px; border-top: 2px solid #ffffff35; color: #aaa; font-size: 11px; transition: color .3s, border-color .3s; }
+.interface-build-caption li[data-state='done'] { color: #d0d0d0; border-color: #a5a5a5; }
+.interface-build-caption li[data-state='active'] { color: #fff; border-color: #fff; }
+@media (max-width: 600px) { .interface-study { height: 290px; } .interface-study-caption { left: 20px; right: 20px; font-size: 11px; } .interface-build-caption { left: 20px; right: 20px; bottom: 18px; } }
+@media (prefers-reduced-motion: reduce) { .interface-study *, .interface-study *::before { transition: none !important; } }
+@media (hover: none) { .interface-hint { display: none; } .interface-stage { cursor: default; } }
